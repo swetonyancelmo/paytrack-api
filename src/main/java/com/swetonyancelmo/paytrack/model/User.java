@@ -1,6 +1,8 @@
 package com.swetonyancelmo.paytrack.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,4 +29,10 @@ public class User {
     @Column(nullable = false, length = 20)
     @Size(min = 3, max = 20, message = "A senha deve conter entre 3 e 20 caracteres")
     private String senha;
+
+    public User(String nome, String email, String senha) {
+        this.nome = nome;
+        this.email = email;
+        this.senha = senha;
+    }
 }

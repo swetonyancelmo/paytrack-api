@@ -4,7 +4,7 @@ import com.swetonyancelmo.paytrack.dtos.request.CreateUserDto;
 import com.swetonyancelmo.paytrack.dtos.response.UserDto;
 import com.swetonyancelmo.paytrack.exceptions.ExistingEmailException;
 import com.swetonyancelmo.paytrack.exceptions.ResourceNotFoundException;
-import com.swetonyancelmo.paytrack.mapper.ObjectMapper;
+import com.swetonyancelmo.paytrack.mapper.UserMapper;
 import com.swetonyancelmo.paytrack.model.User;
 import com.swetonyancelmo.paytrack.repository.UserRepository;
 import org.springframework.stereotype.Service;
@@ -32,9 +32,10 @@ public class UserService {
             throw new ExistingEmailException("E-mail já cadastrado, tente novamente.");
         }
 
-        User user = ObjectMapper.parseObject(dto, User.class);
+        User user = UserMapper.toEntity(dto);
+
         User userSaved = repository.save(user);
-        return ObjectMapper.parseObject(userSaved, UserDto.class);
+        return UserMapper.toDto(userSaved);
     }
 
     @Transactional(readOnly = true)
@@ -43,6 +44,6 @@ public class UserService {
         User user = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado com o ID: " + id));
 
-        return ObjectMapper.parseObject(user, UserDto.class);
+        return UserMapper.toDto(user);
     }
 }
