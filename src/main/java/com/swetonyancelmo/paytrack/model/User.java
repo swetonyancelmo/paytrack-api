@@ -8,6 +8,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "users_tb")
 @Data
@@ -29,6 +32,9 @@ public class User {
     @Column(nullable = false, length = 20)
     @Size(min = 3, max = 20, message = "A senha deve conter entre 3 e 20 caracteres")
     private String senha;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Income> rendas = new ArrayList<>();
 
     public User(String nome, String email, String senha) {
         this.nome = nome;
