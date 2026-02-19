@@ -20,6 +20,6 @@ public record CreateIncomeDto(
 
         @NotNull(message = "É obrigatório informar o usuário")
         @Positive
-        Long id
+        Long userId
 ) {
 }

@@ -7,7 +7,6 @@ import com.swetonyancelmo.paytrack.exceptions.ResourceNotFoundException;
 import com.swetonyancelmo.paytrack.mapper.UserMapper;
 import com.swetonyancelmo.paytrack.model.User;
 import com.swetonyancelmo.paytrack.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,11 +17,14 @@ public class UserService {
 
     private Logger logger = Logger.getLogger(UserService.class.getName());
 
-    @Autowired
-    private UserRepository repository;
+    private final UserRepository repository;
 
-    @Autowired
-    private UserMapper userMapper;
+    private final UserMapper userMapper;
+
+    public UserService(UserRepository repository, UserMapper userMapper) {
+        this.repository = repository;
+        this.userMapper = userMapper;
+    }
 
     @Transactional
     public UserDto create(CreateUserDto dto) {
