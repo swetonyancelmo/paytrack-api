@@ -3,25 +3,18 @@ package com.swetonyancelmo.paytrack.mapper;
 import com.swetonyancelmo.paytrack.dtos.request.CreateUserDto;
 import com.swetonyancelmo.paytrack.dtos.response.UserDto;
 import com.swetonyancelmo.paytrack.model.User;
-import org.springframework.stereotype.Component;
+import org.mapstruct.Mapper;
+import org.mapstruct.factory.Mappers;
 
-@Component
-public class UserMapper {
+@Mapper(componentModel = "spring")
+public abstract class UserMapper {
 
-    public static User toEntity(CreateUserDto dto) {
-        return new User(
-                dto.nome(),
-                dto.email(),
-                dto.senha()
-        );
-    }
+    public static final UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
 
-    public static UserDto toDto(User entity) {
-        return new UserDto(
-                entity.getId(),
-                entity.getNome(),
-                entity.getEmail()
-        );
-    }
+    public abstract User toEntity(CreateUserDto createUserDto);
+
+    public abstract User toUser(UserDto userDto);
+
+    public abstract UserDto toDto(User user);
 
 }

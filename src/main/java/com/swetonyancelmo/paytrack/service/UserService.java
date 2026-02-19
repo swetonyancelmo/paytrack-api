@@ -7,6 +7,7 @@ import com.swetonyancelmo.paytrack.exceptions.ResourceNotFoundException;
 import com.swetonyancelmo.paytrack.mapper.UserMapper;
 import com.swetonyancelmo.paytrack.model.User;
 import com.swetonyancelmo.paytrack.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,11 +18,11 @@ public class UserService {
 
     private Logger logger = Logger.getLogger(UserService.class.getName());
 
-    private final UserRepository repository;
+    @Autowired
+    private UserRepository repository;
 
-    public UserService(UserRepository repository) {
-        this.repository = repository;
-    }
+    @Autowired
+    private UserMapper userMapper;
 
     @Transactional
     public UserDto create(CreateUserDto dto) {
@@ -32,10 +33,10 @@ public class UserService {
             throw new ExistingEmailException("E-mail já cadastrado, tente novamente.");
         }
 
-        User user = UserMapper.toEntity(dto);
+        User user = userMapper.toEntity(dto);
 
         User userSaved = repository.save(user);
-        return UserMapper.toDto(userSaved);
+        return userMapper.toDto(userSaved);
     }
 
     @Transactional(readOnly = true)
@@ -44,6 +45,6 @@ public class UserService {
         User user = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado com o ID: " + id));
 
-        return UserMapper.toDto(user);
+        return userMapper.toDto(user);
     }
 }
