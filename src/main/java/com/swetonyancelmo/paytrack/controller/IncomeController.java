@@ -1,5 +1,6 @@
 package com.swetonyancelmo.paytrack.controller;
 
+import com.swetonyancelmo.paytrack.controller.docs.IncomeControllerDocs;
 import com.swetonyancelmo.paytrack.dtos.request.CreateIncomeDto;
 import com.swetonyancelmo.paytrack.dtos.response.IncomeDto;
 import com.swetonyancelmo.paytrack.service.IncomeService;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/incomes/v1")
 @Tag(name = "Income", description = "Endpoints for Managing Income")
-public class IncomeController implements com.swetonyancelmo.paytrack.controller.docs.IncomeControllerDocs {
+public class IncomeController implements IncomeControllerDocs {
 
     private final IncomeService incomeService;
 
