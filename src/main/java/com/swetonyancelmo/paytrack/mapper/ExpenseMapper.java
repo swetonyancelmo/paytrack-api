@@ -7,7 +7,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
-@Mapper(componentModel = "string")
+@Mapper(componentModel = "spring")
 public abstract class ExpenseMapper {
 
     private static final ExpenseMapper INSTANCE = Mappers.getMapper(ExpenseMapper.class);
