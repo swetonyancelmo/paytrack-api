@@ -2,6 +2,7 @@ package com.swetonyancelmo.paytrack.service;
 
 import java.util.logging.Logger;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,6 +15,7 @@ import com.swetonyancelmo.paytrack.model.User;
 import com.swetonyancelmo.paytrack.repository.IncomeRepository;
 import com.swetonyancelmo.paytrack.repository.UserRepository;
 
+@Slf4j
 @Service
 public class IncomeService {
     
@@ -49,6 +51,7 @@ public class IncomeService {
 
     @Transactional(readOnly = true)
     public IncomeDto findByUserId(Long userId) {
+        logger.info("Realizando a busca de renda pelo ID do usuário");
         boolean userExists = userRepository.existsById(userId);
         
         if(!userExists) {
@@ -61,6 +64,7 @@ public class IncomeService {
 
     @Transactional
     public void delete(Long id){
+        logger.info("Deletando uma renda pelo ID");
         Income income = incomeRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Renda não encontrada"));
         incomeRepository.delete(income);
