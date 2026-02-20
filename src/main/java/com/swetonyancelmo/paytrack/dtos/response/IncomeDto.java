@@ -8,5 +8,5 @@ public record IncomeDto(
         String descricao,
         BigDecimal valor,
         LocalDate data,
-        Long user_id
+        Long userId
 ) {}

@@ -1,6 +1,7 @@
 package com.swetonyancelmo.paytrack.mapper;
 
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 import com.swetonyancelmo.paytrack.dtos.request.CreateIncomeDto;
@@ -16,6 +17,7 @@ public abstract class IncomeMapper {
 
     public abstract Income toEntity(IncomeDto incomeDto);
 
+    @Mapping(source = "user.id", target = "userId")
     public abstract IncomeDto toDto(Income income);
 
 }

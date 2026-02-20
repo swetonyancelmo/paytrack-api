@@ -59,5 +59,10 @@ public class IncomeService {
         return incomeMapper.toDto(income);
     }
 
-    // IMPLEMENTAR O MÉTODO DELETE
+    @Transactional
+    public void delete(Long id){
+        Income income = incomeRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Renda não encontrada"));
+        incomeRepository.delete(income);
+    }
 }
